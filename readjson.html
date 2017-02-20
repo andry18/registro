@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "http://intranet.workuse.com/universidad/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var id_registro = field.id_registro;
+                var nombres = field.nombres;
+                var apellidos = field.apellidos;
+                var email = field.email;
+                var celular = field.celular;
+                var interes = field.interes;
+                $("#listview").append("<a class='item' href='form.html?id_registro=" + id_registro + "&nombres=" + nombres + "&apellidos=" + apellidos + "&email=" + email + "&celular=" + celular + "&interes=" + interes + "'><span class='item-note'>" + nombres + "</span><h2>" + apellidos + " </h2><p>" + email + "</p></a>");
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">Leer registros</h1>
+    </div>
+    <br/>
+    <br/>
+    <ul class="list" id="listview">
+    </ul>
+</body>
+
+</html>

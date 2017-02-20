@@ -1,0 +1,82 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#insert").click(function() {
+            var nombres = $("#nombres").val();
+            var apellidos = $("#apellidos").val();
+            var email = $("#email").val();
+            var celular = $("#celular").val();
+            var interes = $("#interes").val();
+
+            var dataString = "nombres=" + nombres + "&apellidos=" + apellidos + "&email=" + email + "&celular=" + celular +"&interes=" + interes +"&insert=1";
+            if ($.trim(nombres).length > 0 & $.trim(apellidos).length > 0 & $.trim(email).length > 0 & $.trim(celular).length > 0 & $.trim(interes).length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://intranet.workuse.com/universidad/insert.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Conectando...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("inserted");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <h1 class="title">Guardar registros</h1>
+        <a class="button button-clear" href="readjson.html">Ver datos</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>Nombres</label>
+            <input type="text" id="nombres" value="" />
+        </div>
+        <div class="item">
+            <label>Apellidos</label>
+            <input type="text" id="apellidos" value="" />
+        </div>
+        <div class="item">
+            <label>Email</label>
+            <input type="text" id="email" value="" />
+        </div>
+        <div class="item">
+            <label>Celular</label>
+            <input type="text" id="celular" value="" />
+        </div>
+        <div class="item">
+            <label>Interes</label>
+            <select id="interes">
+                <option value="">Opción:</option>
+                <option value="wat">wat</option>
+                <option value="intern">Internship</option>
+                <option value="trainee">Trainee</option>
+            </select>
+        </div>
+        <div class="item">
+            <input type="button" id="insert" class="button button-block" value="Insertar" />
+        </div>
+    </div>
+</body>
+
+</html>
